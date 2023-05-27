@@ -115,8 +115,8 @@ class LNEnv(Env):
             if self.g.has_edge(self.path[i], self.path[i + 1]):
                 if self.path[i] == self.v or self.path[i + 1] == self.v:
                     break 
-                total_cost += -cost_function(self.g, self.path[i], self.path[i + 1], self.amount) / 1000
-        return total_cost / len(self.path)
+                total_cost += cost_function(self.g, self.path[i], self.path[i + 1], self.amount)
+        return -total_cost
 
     def get_guided_bonus(self):
         distance = 0
@@ -131,7 +131,7 @@ class LNEnv(Env):
         if self.check_path():
             path = self.get_path()
             reward += 10000 * len(self.guided_path) / len(path)
-            # reward += self.get_path_cost()
+            # reward += (self.get_path_cost() / 1000) / len(path)
         reward += self.get_guided_bonus()
         return reward
         
