@@ -4,3 +4,5 @@ source activate danilaenv && CUDA_VISIBLE_DEVICES=1, python train.py --subgraph 
 source activate danilaenv && CUDA_VISIBLE_DEVICES=1, python train.py --subgraph 80 --idx 0
 source activate danilaenv && CUDA_VISIBLE_DEVICES=1, python train.py --subgraph 90 --idx 0
 source activate danilaenv && CUDA_VISIBLE_DEVICES=1, python train.py --subgraph 100 --idx 0
+
+source activate danilaenv && CUDA_VISIBLE_DEVICES=1, python train.py --env eenv --subgraph 50 --idx 0

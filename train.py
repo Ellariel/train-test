@@ -40,6 +40,9 @@ if args.env == 'env':
 elif args.env == 'eenv':
     version = 'eenv'
     from eenv import LNEnv
+elif args.env == 'xenv':
+    version = 'xenv'
+    from xenv import LNEnv
 
 def max_neighbors(G):
     def neighbors_count(G, id):
