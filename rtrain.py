@@ -1,27 +1,30 @@
-import os, time, sys, gym, random, pickle, argparse
+import gymnasium as gym, ray
+from ray import air, tune
+from gymnasium.wrappers import EnvCompatibility
+from ray.rllib.algorithms import ppo
+from ray.tune.registry import register_env
+from ray.rllib.algorithms.ppo import PPOConfig
+from ray.tune.logger import pretty_print
+from ray.rllib.algorithms.algorithm_config import AlgorithmConfig
+
+import os, time, sys, random, pickle, argparse
 import networkx as nx
 import numpy as np
 import pandas as pd
-from gym import spaces
 from tqdm import tqdm
-from stable_baselines3.common.env_checker import check_env
-from stable_baselines3 import PPO, A2C, DDPG, TD3, SAC
-from stable_baselines3.common.vec_env import DummyVecEnv
-from stable_baselines3.common.env_util import make_vec_env
-from stable_baselines3.common.monitor import Monitor
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--approach', default='PPO', type=str)
-parser.add_argument('--n_envs', default=16, type=int)
-parser.add_argument('--env', default='env', type=str)
+parser.add_argument('--approach', default='RPPO', type=str)
+parser.add_argument('--n_envs', default=1, type=int)
+parser.add_argument('--env', default='renv', type=str)
 
 parser.add_argument('--subgraph', default=50, type=int)
 parser.add_argument('--idx', default=0, type=int)
 parser.add_argument('--subset', default='randomized', type=str)
 
-parser.add_argument('--attempts', default=10, type=int)
-parser.add_argument('--epochs', default=1000, type=int)
-parser.add_argument('--timesteps', default=1e4, type=int)
+parser.add_argument('--attempts', default=1, type=int)
+parser.add_argument('--epochs', default=1, type=int)
+parser.add_argument('--timesteps', default=10, type=int)
 
 args = parser.parse_args()
 
@@ -34,13 +37,10 @@ attempts = args.attempts
 subgraph = args.subgraph
 subset = args.subset
 
-if args.env == 'env':
-    version = 'env'
-    from env import LNEnv  
-elif args.env == 'eenv':
-    version = 'eenv'
-    from eenv import LNEnv
-
+if args.env == 'renv':
+    version = 'renv'
+    from renv import LNEnv
+    
 def max_neighbors(G):
     def neighbors_count(G, id):
         return len(list(G.neighbors(id)))
@@ -52,7 +52,7 @@ def max_neighbors(G):
 def test_path(u, v, amount=100):
     E_.subset = [(u, v, amount)]
     obs = E_.reset()
-    action, _states = model.predict(obs, deterministic=True)
+    action, _states, _ = model.compute_single_action(obs, explore=False)#.predict(obs, deterministic=True)
     obs, reward, done, info = E_.step(action)
     if E_.check_path():
            return E_.get_path()  
@@ -89,43 +89,82 @@ print(f'subgraph, n: {len(G.nodes)}, e: {len(G.edges)}, max neighbors: {max_neig
 print(f'transations count: {len(T)}, train_set: {len(train_set)}, test_set: {len(test_set)}, valid_set: {len(valid_set)}')
 file_mask = f'{approach}-{version}-{n_envs}-{subset}-{subgraph}-{idx}'
 
-learning_rate = 0.000001
-
+ray.init()
+def env_creator(env_config):
+    return EnvCompatibility(LNEnv(G = env_config['G'],
+                 transactions = env_config['T'],
+                 train = env_config['train']))  # return an env instance
+register_env("LNEnv", env_creator)
+   
+    
 for a in range(attempts):
     print(f"approach: {approach}, env: {version}, n_envs: {n_envs}, subset: {subset}, subgraph: {subgraph}, sample idx: {idx}")
     print(f"train: {file_mask}")
-    
-    if version == 'eenv' and a == 0:
-        e_dist = 10
-    else:
-        e_dist = 1000
 
-    E_ = LNEnv(G, [], train=False, exploration_dist=e_dist)
+    E_ = LNEnv(G, [], train=False)
     #check_env(E_)    
-    E = make_vec_env(lambda: LNEnv(G, train_set, exploration_dist=e_dist), n_envs=n_envs)
+    #E = make_vec_env(lambda: LNEnv(G, train_set), n_envs=n_envs)
 
 
     lf = os.path.join(results_dir, f'{file_mask}.log')
     log = pd.read_csv(lf, sep=';', compression='zip') if os.path.exists(lf) else None
     f = os.path.join(weights_dir, f'{file_mask}.sav')
 
-    if approach == 'PPO':
-        model_class = PPO
+    if approach == 'RPPO':
+        model_class = ppo.PPO
     else:
         model_class = None
         print(f'{approach} - not implemented!')
         raise ValueError
 
     if os.path.exists(f) and model_class:
-        model = model_class.load(f, E, force_reset=False, verbose=0, learning_rate=learning_rate)
+        #model = model_class.load(f, E, force_reset=False, verbose=0, learning_rate=learning_rate)
         print(f'model is loaded {approach}: {f}')
     else:
         print(f'did not find {approach}: {f}')
-        model = model_class("MlpPolicy", E, verbose=0, learning_rate=learning_rate) 
+        #model = model_class("MlpPolicy", E, verbose=0, learning_rate=learning_rate) 
+        '''
+        model = model_class(env='LNEnv', config={"env_config": {
+                                                    'G': G,
+                                                    'T': train_set,
+                                                    'train': True,
+    
+                                                    'num_gpus': 1,
+                                                    'num_workers': 4,
+                                                    
+                                                    'vf_clip_param': 500.0,
+                                                    'lambda': 0.1,
+                                                    'gamma': 0.99,
+                                                    'lr': 0.000001,
+            },  # config to pass to env class
+        '''
+        model = model_class(config = AlgorithmConfig()
+                            .environment(env = "LNEnv", 
+                                         clip_rewards = 500.0,
+                                         env_config = {'G': G,
+                                                       'T': train_set,
+                                                       'train': True,
+                                                      },
+                                         )
+                            .training(gamma = 0.9, 
+                                      lr = 0.01,
+                                      )
+                            .resources(num_gpus = 0)
+                            .rollouts(num_rollout_workers = 4)
+                            .build())
+                            #.callbacks(MemoryTrackingCallbacks)
+# A config object can be used to construct the respective Trainer.
+
+                                                 
+                                                 
+#        })
 
     for epoch in range(1, epochs + 1):
-        model.learn(total_timesteps=timesteps, progress_bar=True)
-
+        #model.learn(total_timesteps=timesteps, progress_bar=True)
+        for step in tqdm(range(int(timesteps))):
+            result = model.train()
+        print(pretty_print(result))
+        
         train_score = 0
         train_total_pathlen = []
         for tx in tqdm(train_set):
@@ -182,4 +221,3 @@ for a in range(attempts):
                                                 'avg_pathlen': np.mean(test_total_pathlen + train_total_pathlen),
                                                 }, orient='index').T], ignore_index=True)
         log.to_csv(lf, sep=';', index=False, compression='zip')
-

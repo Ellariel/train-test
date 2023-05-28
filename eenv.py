@@ -8,6 +8,7 @@ from proto import cost_function
 
 class LNEnv(Env): 
     def __init__(self, G, transactions, exploration_dist=10, train=True) -> None:
+        self.e_dist = exploration_dist
         self.subset = transactions
         self.train = train
         self.g = G
@@ -35,15 +36,6 @@ class LNEnv(Env):
         if path:
             return len(path)
         return 100
-
-    #def shortest_path_len(self, u, v, proto='dijkstra'):
-    #    if u == v:
-    #        return 0
-    #    try:
-    #        path_len = nx.shortest_path_length(self.g, u, v, method=proto)
-    #    except:
-    #        return 100
-    #    return path_len
     
     def reset(self):
         tx = random.choice(self.subset)
@@ -122,7 +114,7 @@ class LNEnv(Env):
         for i in self.path[1:]:
             for j in self.guided_path:
                 distance += self.get_path_len(self.get_shortest_path(i, j))
-        distance -= len(self.path)
+        distance += self.e_dist - len(self.path)
         return -distance
    
     def compute_reward(self):
