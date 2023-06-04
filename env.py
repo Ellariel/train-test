@@ -7,7 +7,7 @@ from operator import itemgetter
 from proto import cost_function
 
 class LNEnv(Env): 
-    def __init__(self, G, transactions, exploration_dist=10, train=True) -> None:
+    def __init__(self, G, transactions, train=True) -> None:
         self.subset = transactions
         self.train = train
         self.g = G

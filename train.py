@@ -90,9 +90,9 @@ for a in range(attempts):
     print(f"approach: {approach}, env: {version}, n_envs: {n_envs}, subset: {subset}, subgraph: {subgraph}, sample idx: {idx}")
     print(f"train: {file_mask}")
 
-    E_ = LNEnv(G, [], train=False, exploration_dist=e_dist)
+    E_ = LNEnv(G, [], train=False)
     #check_env(E_)    
-    E = make_vec_env(lambda: LNEnv(G, train_set, exploration_dist=e_dist), n_envs=n_envs)
+    E = make_vec_env(lambda: LNEnv(G, train_set), n_envs=n_envs)
 
 
     lf = os.path.join(results_dir, f'{file_mask}.log')
