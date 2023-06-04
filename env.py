@@ -35,15 +35,6 @@ class LNEnv(Env):
         if path:
             return len(path)
         return 100
-
-    #def shortest_path_len(self, u, v, proto='dijkstra'):
-    #    if u == v:
-    #        return 0
-    #    try:
-    #        path_len = nx.shortest_path_length(self.g, u, v, method=proto)
-    #    except:
-    #        return 100
-    #    return path_len
     
     def reset(self):
         tx = random.choice(self.subset)

@@ -1,8 +1,7 @@
-import os, time, sys, gym, random, pickle, argparse
+import os, time, random, pickle, argparse
 import networkx as nx
 import numpy as np
 import pandas as pd
-from gym import spaces
 from tqdm import tqdm
 from stable_baselines3.common.env_checker import check_env
 from stable_baselines3 import PPO, A2C, DDPG, TD3, SAC
@@ -20,7 +19,7 @@ parser.add_argument('--idx', default=0, type=int)
 parser.add_argument('--subset', default='randomized', type=str)
 
 parser.add_argument('--attempts', default=10, type=int)
-parser.add_argument('--epochs', default=1000, type=int)
+parser.add_argument('--epochs', default=10000, type=int)
 parser.add_argument('--timesteps', default=1e4, type=int)
 
 args = parser.parse_args()
@@ -37,12 +36,6 @@ subset = args.subset
 if args.env == 'env':
     version = 'env'
     from env import LNEnv  
-elif args.env == 'eenv':
-    version = 'eenv'
-    from eenv import LNEnv
-elif args.env == 'xenv':
-    version = 'xenv'
-    from xenv import LNEnv
 
 def max_neighbors(G):
     def neighbors_count(G, id):
@@ -67,7 +60,6 @@ results_dir = os.path.join(base_dir, 'results')
 os.makedirs(results_dir, exist_ok=True)
 os.makedirs(weights_dir, exist_ok=True)
 
-#samples = nx.read_gpickle(os.path.join(snapshots_dir, f'graph-sample-{subgraph}.pickle'))
 with open(os.path.join(snapshots_dir, f'sampled_graph.pickle'), 'rb') as f:
     samples = pickle.load(f)
     print(f"available subgraphs: {', '.join([str(i) for i in samples.keys()])}")
