@@ -89,11 +89,6 @@ learning_rate = 0.000001
 for a in range(attempts):
     print(f"approach: {approach}, env: {version}, n_envs: {n_envs}, subset: {subset}, subgraph: {subgraph}, sample idx: {idx}")
     print(f"train: {file_mask}")
-    
-    if version == 'eenv' and a == 0:
-        e_dist = 10
-    else:
-        e_dist = 1000
 
     E_ = LNEnv(G, [], train=False, exploration_dist=e_dist)
     #check_env(E_)    
