@@ -1,13 +1,11 @@
-import os, time, random, pickle, argparse
+import os, time, pickle, argparse
 import networkx as nx
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
 from stable_baselines3.common.env_checker import check_env
 from stable_baselines3 import PPO, A2C, DDPG, TD3, SAC
-from stable_baselines3.common.vec_env import DummyVecEnv
 from stable_baselines3.common.env_util import make_vec_env
-from stable_baselines3.common.monitor import Monitor
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--approach', default='PPO', type=str)
