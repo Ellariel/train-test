@@ -161,3 +161,140 @@
 	2146  -  MemoryUsage of job (MB)
 	2196760  -  ResidentSetSize of job (KB)
 ...
+006 (7108.000.000) 2023-06-22 12:56:02 Image size of job updated: 11343608
+	2935  -  MemoryUsage of job (MB)
+	3005100  -  ResidentSetSize of job (KB)
+...
+004 (7108.000.000) 2023-06-22 12:56:02 Job was evicted.
+	(0) CPU times
+		Usr 0 00:27:18, Sys 0 00:00:46  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	1241649  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     1.00        1         1 
+	   Disk (KB)            :  1283        1250    244931 
+	   Gpus (Average)       :                 1         1 "CUDA1"
+	   Memory (MB)          :  2935           2       128 
+...
+009 (7108.000.000) 2023-06-22 12:56:02 Job was aborted.
+	via condor_rm (by user danila.valko)
+...
+006 (7110.000.000) 2023-06-22 12:56:07 Image size of job updated: 13869640
+	2156  -  MemoryUsage of job (MB)
+	2207328  -  ResidentSetSize of job (KB)
+...
+006 (7109.000.000) 2023-06-22 12:56:07 Image size of job updated: 13878504
+	2146  -  MemoryUsage of job (MB)
+	2196760  -  ResidentSetSize of job (KB)
+...
+004 (7109.000.000) 2023-06-22 12:56:07 Job was evicted.
+	(0) CPU times
+		Usr 0 00:16:15, Sys 0 00:00:30  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	1241649  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     1.01        1         1 
+	   Disk (KB)            :  1257        1250    155470 
+	   Gpus (Average)       :                 1         1 "CUDA0"
+	   Memory (MB)          :  2146           2       128 
+...
+009 (7109.000.000) 2023-06-22 12:56:07 Job was aborted.
+	via condor_rm (by user danila.valko)
+...
+006 (7110.000.000) 2023-06-22 12:56:13 Image size of job updated: 13874304
+	2156  -  MemoryUsage of job (MB)
+	2207328  -  ResidentSetSize of job (KB)
+...
+004 (7110.000.000) 2023-06-22 12:56:13 Job was evicted.
+	(0) CPU times
+		Usr 0 00:14:56, Sys 0 00:00:23  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	1241649  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     1.01        1         1 
+	   Disk (KB)            :  1252        1250    155470 
+	   Gpus (Average)       :                 1         1 "CUDA1"
+	   Memory (MB)          :  2156           2       128 
+...
+009 (7110.000.000) 2023-06-22 12:56:13 Job was aborted.
+	via condor_rm (by user danila.valko)
+...
+006 (7111.000.000) 2023-06-22 12:56:19 Image size of job updated: 13878392
+	2099  -  MemoryUsage of job (MB)
+	2148996  -  ResidentSetSize of job (KB)
+...
+004 (7111.000.000) 2023-06-22 12:56:19 Job was evicted.
+	(0) CPU times
+		Usr 0 00:14:41, Sys 0 00:00:20  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	1241649  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     1.01        1         1 
+	   Disk (KB)            :  1250        1250    154433 
+	   Gpus (Average)       :                 1         1 "CUDA0"
+	   Memory (MB)          :  2099           2       128 
+...
+009 (7111.000.000) 2023-06-22 12:56:19 Job was aborted.
+	via condor_rm (by user danila.valko)
+...
+006 (7112.000.000) 2023-06-22 12:56:22 Image size of job updated: 13996024
+	2108  -  MemoryUsage of job (MB)
+	2157780  -  ResidentSetSize of job (KB)
+...
+004 (7112.000.000) 2023-06-22 12:56:22 Job was evicted.
+	(0) CPU times
+		Usr 0 00:14:08, Sys 0 00:00:20  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	1241649  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     1.01        1         1 
+	   Disk (KB)            :  1251        1250    155470 
+	   Gpus (Average)       :                 1         1 "CUDA3"
+	   Memory (MB)          :  2108           2       128 
+...
+009 (7112.000.000) 2023-06-22 12:56:22 Job was aborted.
+	via condor_rm (by user danila.valko)
+...
+006 (7113.000.000) 2023-06-22 12:56:25 Image size of job updated: 13858932
+	2099  -  MemoryUsage of job (MB)
+	2149208  -  ResidentSetSize of job (KB)
+...
+004 (7113.000.000) 2023-06-22 12:56:25 Job was evicted.
+	(0) CPU times
+		Usr 0 00:12:50, Sys 0 00:00:17  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	1241649  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     1.01        1         1 
+	   Disk (KB)            :  1249        1250    154433 
+	   Gpus (Average)       :                 1         1 "CUDA1"
+	   Memory (MB)          :  2099           2       128 
+...
+009 (7113.000.000) 2023-06-22 12:56:25 Job was aborted.
+	via condor_rm (by user danila.valko)
+...
+006 (7114.000.000) 2023-06-22 12:56:29 Image size of job updated: 13841596
+	2106  -  MemoryUsage of job (MB)
+	2155540  -  ResidentSetSize of job (KB)
+...
+004 (7114.000.000) 2023-06-22 12:56:29 Job was evicted.
+	(0) CPU times
+		Usr 0 00:12:40, Sys 0 00:00:13  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	1241649  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     1.01        1         1 
+	   Disk (KB)            :  1246        1250    154433 
+	   Gpus (Average)       :                 1         1 "CUDA2"
+	   Memory (MB)          :  2106           2       128 
+...
+009 (7114.000.000) 2023-06-22 12:56:29 Job was aborted.
+	via condor_rm (by user danila.valko)
+...

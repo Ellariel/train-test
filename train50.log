@@ -11,3 +11,27 @@
 	302  -  MemoryUsage of job (MB)
 	308456  -  ResidentSetSize of job (KB)
 ...
+006 (7121.000.000) 2023-06-22 13:00:23 Image size of job updated: 13768588
+	2047  -  MemoryUsage of job (MB)
+	2095756  -  ResidentSetSize of job (KB)
+...
+006 (7121.000.000) 2023-06-22 13:05:24 Image size of job updated: 13827348
+	2106  -  MemoryUsage of job (MB)
+	2155616  -  ResidentSetSize of job (KB)
+...
+006 (7121.000.000) 2023-06-22 13:10:25 Image size of job updated: 13875948
+	2154  -  MemoryUsage of job (MB)
+	2205444  -  ResidentSetSize of job (KB)
+...
+006 (7121.000.000) 2023-06-22 13:15:25 Image size of job updated: 13937660
+	2217  -  MemoryUsage of job (MB)
+	2269904  -  ResidentSetSize of job (KB)
+...
+006 (7121.000.000) 2023-06-22 13:20:26 Image size of job updated: 13994224
+	2277  -  MemoryUsage of job (MB)
+	2330992  -  ResidentSetSize of job (KB)
+...
+006 (7121.000.000) 2023-06-22 13:25:27 Image size of job updated: 14049912
+	2332  -  MemoryUsage of job (MB)
+	2387492  -  ResidentSetSize of job (KB)
+...
