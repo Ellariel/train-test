@@ -4,7 +4,7 @@ import numpy as np
 from gym import Env, spaces
 from operator import itemgetter
 
-from proto import cost_function
+from proto.proto import cost_function
 
 class LNEnv(Env): 
     def __init__(self, G, transactions, train=True) -> None:
@@ -121,7 +121,7 @@ class LNEnv(Env):
         if self.check_path():
             path = self.get_path()
             reward += 10000 * len(self.guided_path) / len(path)
-            # reward += (self.get_path_cost() / 1000) / len(path)
+            #reward += (self.get_path_cost() / 1000) / len(path)
         reward += self.get_guided_bonus()
         return reward
         

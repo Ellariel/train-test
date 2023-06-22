@@ -1,14 +1,15 @@
-import os, time, sys, gym, random, pickle, argparse
-import networkx as nx
+import os, argparse, pickle
+#import networkx as nx
+#time, sys, gym, random, , 
 import numpy as np
-import pandas as pd
-from gym import spaces
+#import pandas as pd
+#from gym import spaces
 from tqdm import tqdm
-from stable_baselines3.common.env_checker import check_env
+#from stable_baselines3.common.env_checker import check_env
 from stable_baselines3 import PPO, A2C, DDPG, TD3, SAC
-from stable_baselines3.common.vec_env import DummyVecEnv
-from stable_baselines3.common.env_util import make_vec_env
-from stable_baselines3.common.monitor import Monitor
+#from stable_baselines3.common.vec_env import DummyVecEnv
+#from stable_baselines3.common.env_util import make_vec_env
+#from stable_baselines3.common.monitor import Monitor
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--approach', default='PPO', type=str)
@@ -75,6 +76,9 @@ print(f'transations count: {len(T)}, train_set: {len(train_set)}, test_set: {len
 file_mask = f'{approach}-{version}-{n_envs}-{subset}-{subgraph}-{idx}'
 
 E_ = LNEnv(G, [], train=False)
+
+#e = LNEnv(G, T, train=True)
+#check_env(e)
 
 f = os.path.join(weights_dir, f'{file_mask}.sav')
 
