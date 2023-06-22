@@ -28,3 +28,62 @@
 	372  -  MemoryUsage of job (MB)
 	380728  -  ResidentSetSize of job (KB)
 ...
+006 (7136.000.000) 2023-06-22 13:49:53 Image size of job updated: 13776372
+	2057  -  MemoryUsage of job (MB)
+	2105916  -  ResidentSetSize of job (KB)
+...
+006 (7133.000.000) 2023-06-22 13:51:26 Image size of job updated: 13767996
+	2048  -  MemoryUsage of job (MB)
+	2096876  -  ResidentSetSize of job (KB)
+...
+006 (7136.000.000) 2023-06-22 13:54:54 Image size of job updated: 13823616
+	2104  -  MemoryUsage of job (MB)
+	2154420  -  ResidentSetSize of job (KB)
+...
+006 (7136.000.000) 2023-06-22 13:55:07 Image size of job updated: 13824128
+	2104  -  MemoryUsage of job (MB)
+	2154420  -  ResidentSetSize of job (KB)
+...
+004 (7136.000.000) 2023-06-22 13:55:07 Job was evicted.
+	(0) CPU times
+		Usr 0 00:10:07, Sys 0 00:00:15  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	1241649  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated Assigned
+	   Cpus                 :     1.01        1         1 
+	   Disk (KB)            :  1245        1250    155470 
+	   Gpus (Average)       :                 1         1 "CUDA1"
+	   Memory (MB)          :  2104           2       128 
+...
+009 (7136.000.000) 2023-06-22 13:55:07 Job was aborted.
+	via condor_rm (by user danila.valko)
+...
+006 (7133.000.000) 2023-06-22 13:56:26 Image size of job updated: 13826472
+	2105  -  MemoryUsage of job (MB)
+	2155388  -  ResidentSetSize of job (KB)
+...
+006 (7133.000.000) 2023-06-22 14:01:28 Image size of job updated: 13862792
+	2141  -  MemoryUsage of job (MB)
+	2191708  -  ResidentSetSize of job (KB)
+...
+006 (7133.000.000) 2023-06-22 14:06:28 Image size of job updated: 13923764
+	2203  -  MemoryUsage of job (MB)
+	2255180  -  ResidentSetSize of job (KB)
+...
+006 (7133.000.000) 2023-06-22 14:11:28 Image size of job updated: 13971668
+	2249  -  MemoryUsage of job (MB)
+	2302832  -  ResidentSetSize of job (KB)
+...
+006 (7133.000.000) 2023-06-22 14:16:29 Image size of job updated: 14002972
+	2281  -  MemoryUsage of job (MB)
+	2335032  -  ResidentSetSize of job (KB)
+...
+006 (7133.000.000) 2023-06-22 14:21:29 Image size of job updated: 14068196
+	2344  -  MemoryUsage of job (MB)
+	2399872  -  ResidentSetSize of job (KB)
+...
+006 (7133.000.000) 2023-06-22 14:26:30 Image size of job updated: 14095300
+	2371  -  MemoryUsage of job (MB)
+	2427348  -  ResidentSetSize of job (KB)
+...
