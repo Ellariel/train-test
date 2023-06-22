@@ -1,6 +1,6 @@
 executable = /bin/bash 
 arguments = -i conda_activate.sh baselines train.py --subgraph 50 --idx 1 
-log = train5050505050.log 
+log = train50.log 
 transfer_input_files = conda_activate.sh, train.py 
 output = stdout.txt 
 error = stderr.txt 
