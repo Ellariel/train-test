@@ -169,6 +169,10 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
     random.seed(48)
     np.random.seed(48)    
     
+    file_mask = f'{approach}-{version}-{n_envs}-{subset}-{subgraph}-{idx}'
+    if not os.path.exists(f'{file_mask}.sav'):
+        continue
+    
     algorithms = {'RLA': RLRouting(G, weights_dir, approach=approach, 
                                 version=version, n_envs=n_envs, 
                                 subset=subset, subgraph=subgraph, 
