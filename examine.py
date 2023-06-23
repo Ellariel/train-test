@@ -190,8 +190,8 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
             results[f"{algorithm}-{subgraph}-{i}-emissions"] = e.to_dict()
             os.remove(os.path.join(results_dir, 'emissions.csv'))
 
-        with open(os.path.join(results_dir, f"{algorithm}-{subgraph}-{i}.pickle"), 'wb') as f:
-                pickle.dump(results, f)
+    with open(os.path.join(results_dir, f"{subset}-{subgraph}-{i}.pickle"), 'wb') as f:
+            pickle.dump(results, f)
 
 print('done')
 print(f"git add -f results-*.pickle && git commit -m results && git push")
