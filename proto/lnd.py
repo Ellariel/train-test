@@ -1,5 +1,5 @@
 from queue import  PriorityQueue
-from base import Routing
+from proto.base import Routing
 from math import inf
 import time
 

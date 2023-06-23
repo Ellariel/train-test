@@ -1,5 +1,5 @@
 from queue import PriorityQueue
-from base import Routing
+from proto.base import Routing
 import nested_dict as nd
 from math import inf
 import random as rn
