@@ -1,9 +1,0 @@
-executable = /bin/bash 
-arguments = -i conda_activate.sh baselines train.py --subgraph 100 --idx 1
-log = ./logs/train100-1.log 
-transfer_input_files = conda_activate.sh, train.py 
-output = ./logs/stdout100-1.txt 
-error = ./logs/stderr100-1.txt 
-should_transfer_files = IF_NEEDED 
-request_gpus = 1
-queue
