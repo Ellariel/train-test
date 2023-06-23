@@ -42,11 +42,13 @@ def max_neighbors(G):
 
 def to_bidirected(G):
     G = nx.DiGraph(G)
+    attrib = {}
     for u, v in G.edges:
         if not G.has_edge(v, u):
             G.add_edge(v, u)
-            attrib = {(v, u) : G.edges[u, v]}
-            nx.set_edge_attributes(G, attrib)
+            attrib.update({(v, u) : G.edges[u, v]})
+            G.remove_edge(u, v)
+    nx.set_edge_attributes(G, attrib)
     return G
     
 class RLRouting():
