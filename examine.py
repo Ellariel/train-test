@@ -1,6 +1,6 @@
-import networkx as nx
 import numpy as np
 import pandas as pd
+import networkx as nx
 import os, time, pickle, glob, random, argparse
 from tqdm import tqdm
 from stable_baselines3 import PPO, A2C, DDPG, TD3, SAC
@@ -176,7 +176,7 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
                  'ECL': EclairRouting(),
                  }
     results = {}
-    #emissions_idx = []
+
     for algorithm, _routingObj in tqdm(algorithms.items(), leave=False):
         t = T.copy()
         g = G.copy() if algorithm == 'RLA' else to_bidirected(G)
