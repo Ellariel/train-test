@@ -149,7 +149,7 @@ for a in range(attempts):
         else:
             model.save(f+'.tmp')
 
-        if max(train_score, test_score) > 0.75:
+        if max(train_score, test_score) > 0.8:
             model.save(f + f'-{train_score:.3f}-{test_score:.3f}')
             print('saved:', f + f'-{train_score:.3f}-{test_score:.3f}')
 
