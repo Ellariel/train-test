@@ -40,7 +40,7 @@ def max_neighbors(G):
       max_neighbors = max(max_neighbors, neighbors_count(G, id))
     return max_neighbors
 
-def to_bidirected(G):
+def reverse(G):
     G = nx.DiGraph(G)
     attrib = {}
     for u, v in G.edges:
@@ -139,7 +139,7 @@ class RLRouting():
 def track_emissions(G, T, routingObj, alg):
     results = []
     with OfflineEmissionsTracker(country_iso_code="CAN", 
-                                 measure_power_secs=1, 
+                                 measure_power_secs=0.1, 
                                  tracking_mode='process', 
                                  output_file=os.path.join(results_dir, 'emissions.csv')) as tracker:
         for t in tqdm(T, leave=False, desc=alg):
@@ -181,7 +181,7 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
 
     for algorithm, _routingObj in tqdm(algorithms.items(), leave=False):
         t = T.copy()
-        g = G.copy() if algorithm == 'RLA' else to_bidirected(G)
+        g = G.copy() if algorithm == 'RLA' else reverse(G)
         
         results[f"{algorithm}-{subgraph}-{i}"] = track_emissions(g, t, _routingObj, _routingObj.name())
         emissions_idx = [f"{algorithm}-{subgraph}-{i}"] 

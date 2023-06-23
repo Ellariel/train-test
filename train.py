@@ -105,8 +105,12 @@ for a in range(attempts):
         raise ValueError
 
     if os.path.exists(f) and model_class:
-        model = model_class.load(f, E, force_reset=False, verbose=0, learning_rate=learning_rate)
-        print(f'model is loaded {approach}: {f}')
+        try:
+            model = model_class.load(f, E, force_reset=False, verbose=0, learning_rate=learning_rate)
+            print(f"model is loaded {approach}: {f}")
+        except:
+            model = model_class.load(f+'.tmp', E, force_reset=False, verbose=0, learning_rate=learning_rate)
+            print(f"model is loaded {approach}: {f+'.tmp'}")
     else:
         print(f'did not find {approach}: {f}')
         model = model_class("MlpPolicy", E, verbose=0, learning_rate=learning_rate) 
@@ -140,9 +144,12 @@ for a in range(attempts):
         print(f'test score: {test_score}, pathlen min: {np.min(test_total_pathlen)} average: {np.mean(test_total_pathlen):.1f} max: {np.max(test_total_pathlen)}')
         print(f'train score: {train_score}, pathlen min: {np.min(train_total_pathlen)} average: {np.mean(train_total_pathlen):.1f} max: {np.max(train_total_pathlen)}')
         print(f"max mean reward: {max_mean_reward:.3f}~{mean_reward}")
-        model.save(f)
+        if epoch % 2:
+            model.save(f)
+        else:
+            model.save(f+'.tmp')
 
-        if max(train_score, test_score) > 0.7:
+        if max(train_score, test_score) > 0.75:
             model.save(f + f'-{train_score:.3f}-{test_score:.3f}')
             print('saved:', f + f'-{train_score:.3f}-{test_score:.3f}')
 
