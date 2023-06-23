@@ -176,13 +176,13 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
                  'ECL': EclairRouting(),
                  }
     results = {}
-    emissions_idx = []
+    #emissions_idx = []
     for algorithm, _routingObj in tqdm(algorithms.items(), leave=False):
         t = T.copy()
         g = G.copy() if algorithm == 'RLA' else to_bidirected(G)
         
         results[f"{algorithm}-{subgraph}-{i}"] = track_emissions(g, t, _routingObj, _routingObj.name())
-        emissions_idx.append(f"{algorithm}-{subgraph}-{i}")    
+        emissions_idx = [f"{algorithm}-{subgraph}-{i}"] 
     
         if os.path.exists(os.path.join(results_dir, 'emissions.csv')): 
             e = pd.read_csv(os.path.join(results_dir, 'emissions.csv'))
