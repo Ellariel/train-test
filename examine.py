@@ -139,7 +139,7 @@ class RLRouting():
 def track_emissions(G, T, routingObj, alg):
     results = []
     with OfflineEmissionsTracker(country_iso_code="CAN", 
-                                 measure_power_secs=0.1, 
+                                 measure_power_secs=0.3, 
                                  tracking_mode='process', 
                                  output_file=os.path.join(results_dir, 'emissions.csv')) as tracker:
         for t in tqdm(T, leave=False, desc=alg):
