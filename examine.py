@@ -169,7 +169,7 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
     random.seed(48)
     np.random.seed(48)    
     
-    file_mask = f'{approach}-{version}-{n_envs}-{subset}-{subgraph}-{idx}'
+    file_mask = f'{approach}-{version}-{n_envs}-{subset}-{subgraph}-{i}'
     if not os.path.exists(os.path.join(weights_dir, f'{file_mask}.sav')):
         continue
     
@@ -199,8 +199,8 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
             results[f"{algorithm}-{subgraph}-{i}-emissions"] = e.to_dict()
             os.remove(os.path.join(results_dir, 'emissions.csv'))
 
-    with open(os.path.join(results_dir, f"results-{subset}-{subgraph}-{i}.pickle"), 'wb') as f:
+    with open(os.path.join(results_dir, f"{file_mask}.pickle"), 'wb') as f:
             pickle.dump(results, f)
 
 print('done')
-print(f"git add -f results-*.pickle && git commit -m results && git push")
+print(f"git add -f results/*.pickle && git commit -m results && git push")
