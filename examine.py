@@ -14,7 +14,7 @@ from proto.lnd import LNDRouting
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--approach', default='PPO', type=str)
-parser.add_argument('--n_envs', default=16, type=int)
+parser.add_argument('--n_envs', default=1, type=int)
 parser.add_argument('--env', default='env', type=str)
 
 parser.add_argument('--subgraph', default=50, type=int)
@@ -47,7 +47,7 @@ def reverse(G):
         if not G.has_edge(v, u):
             G.add_edge(v, u)
             attrib.update({(v, u) : G.edges[u, v]})
-            G.remove_edge(u, v)
+            #G.remove_edge(u, v)
     nx.set_edge_attributes(G, attrib)
     return G
     
@@ -170,7 +170,7 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
     np.random.seed(48)    
     
     file_mask = f'{approach}-{version}-{n_envs}-{subset}-{subgraph}-{idx}'
-    if not os.path.exists(f'{file_mask}.sav'):
+    if not os.path.exists(os.path.join(weights_dir, f'{file_mask}.sav')):
         continue
     
     algorithms = {'RLA': RLRouting(G, weights_dir, approach=approach, 
