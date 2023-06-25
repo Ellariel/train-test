@@ -47,7 +47,7 @@ def reverse(G):
         if not G.has_edge(v, u):
             G.add_edge(v, u)
             attrib.update({(v, u) : G.edges[u, v]})
-            #G.remove_edge(u, v)
+            G.remove_edge(u, v)
     nx.set_edge_attributes(G, attrib)
     return G
     
