@@ -193,9 +193,10 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
         if os.path.exists(os.path.join(results_dir, 'emissions.csv')): 
             e = pd.read_csv(os.path.join(results_dir, 'emissions.csv'))
             e = pd.concat([e, pd.Series(emissions_idx, name='emissions_idx')], axis=1)
-            e = e[['timestamp', 'duration', 'emissions', 
-                'emissions_rate', 'cpu_power', 'gpu_power', 'ram_power', 'cpu_energy',
-                'gpu_energy', 'ram_energy', 'energy_consumed', 'emissions_idx']]
+            e = e[['emissions_idx', 'timestamp', 'duration', 'emissions', 
+                #'emissions_rate', 'cpu_power', 'gpu_power', 'ram_power', 'cpu_energy',
+                #'gpu_energy', 'ram_energy', 'energy_consumed', 
+                 ]]
             results[f"{algorithm}-{subgraph}-{i}-emissions"] = e.to_dict()
             os.remove(os.path.join(results_dir, 'emissions.csv'))
 
