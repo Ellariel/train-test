@@ -81,35 +81,7 @@ class RLRouting():
            
     def name(self):
         return f"RL-agent({self.approach})"           
-        
-    def get_delay(self, u, v):
-        e = self.g.edges[u, v]
-        delay = 0
-        if 'delay' in e:
-            delay += e["delay"]
-        return delay
-
-    def get_amount(self, u, v, amount):
-        e = self.g.edges[u, v]
-        fee = 0
-        if 'fee_base_sat' in e:
-            fee = e['fee_base_sat'] + amount * e['fee_rate_sat']
-        return fee
-
-    def get_total_delay(self, path):
-        total_delay = 0
-        for i in range(len(path)-1):
-            if [path[i], path[i + 1]] in self.g.edges:
-                total_delay += self.get_delay(path[i], path[i + 1])
-        return total_delay
-        
-    def get_total_amount(self, path, amount):
-        total_amount = amount
-        for i in range(1, len(path)-1):
-            if [path[i], path[i + 1]] in self.g.edges:
-                total_amount += self.get_amount(path[i], path[i + 1], total_amount)
-        return total_amount
-    
+           
     def get_total(self, path, amount):
         total_delay = 0
         total_amount = amount
@@ -152,7 +124,7 @@ class RLRouting():
 def track_emissions(G, T, routingObj, alg):
     results = []
     with OfflineEmissionsTracker(country_iso_code="CAN", 
-                                 measure_power_secs=0.1, 
+                                 measure_power_secs=1, 
                                  tracking_mode='process', 
                                  output_file=os.path.join(results_dir, 'emissions.csv')) as tracker:
         for t in tqdm(T, leave=False, desc=alg):
