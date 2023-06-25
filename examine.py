@@ -85,13 +85,13 @@ class RLRouting():
     def get_total(self, path, amount):
         total_delay = 0
         total_amount = amount
-        for i in range(1, len(path)-1):
+        for i in range(0, len(path)-1):
             if [path[i], path[i + 1]] in self.g.edges:
                 e = self.g.edges[path[i], path[i + 1]]
                 if 'delay' in e:
                     total_delay += e["delay"]
-                if 'fee_base_sat' in e:
-                    total_amount = e['fee_base_sat'] + total_amount * e['fee_rate_sat']
+                if 'fee_base_sat' in e and i > 0:
+                    total_amount += e['fee_base_sat'] + total_amount * e['fee_rate_sat']
         return total_delay, total_amount
 
     def routePath(self, G, u, v, amount):
