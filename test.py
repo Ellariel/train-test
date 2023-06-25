@@ -44,9 +44,16 @@ def test_path(u, v, amount=100):
     E_.subset = [(u, v, amount)]
     obs = E_.reset()
     action, _states = model.predict(obs, deterministic=True)
-    obs, reward, done, info = E_.step(action)
+    path = E_.predict_path(action)
     if E_.check_path():
-           return E_.get_path()  
+        return path
+    
+    #if v in path:
+    #    return path
+    #obs, reward, done, info = E_.step(action)
+    #return E_.predict_path(action)
+    #if E_.check_path():
+    #       return E_.get_path()  
 
 base_dir = './'
 snapshots_dir = os.path.join(base_dir, 'snapshots')

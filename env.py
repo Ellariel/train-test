@@ -83,6 +83,26 @@ class LNEnv(Env):
                 self.reward.append(reward)          
         
         return self.current_observation, reward, done, {}
+    
+    def predict_path(self, action, max_path_length=10):
+        direction = (action[0] + 1) / 2       
+        action = action[1:]
+
+        idx = np.nonzero(action > 0)[0]
+        act = [self.idx_to_id[i] for i in idx]
+        idx = np.argsort(itemgetter(*idx)(action))
+        action = itemgetter(*idx)(act)
+
+        #while True:
+        for _ in range(max_path_length):
+            neighbors = [n for n in action if n in self.g.neighbors(self.path[-1]) and n not in self.path]
+            if len(neighbors) and self.v not in self.path:
+                next_node = neighbors[int(direction * (len(neighbors) - 1))]
+                self.path += [next_node]        
+            else:
+                break
+
+        return self.get_path()   
 
     def render(self, mode='console'): 
         if mode != 'console':

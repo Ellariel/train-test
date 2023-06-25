@@ -104,8 +104,9 @@ class RLRouting():
         self.env.subset = [(u, v, amount)]       
         obs = self.env.reset()
         action, _states = self.model.predict(obs, deterministic=True)
-        obs, reward, done, info = self.env.step(action)
-        path = self.env.get_path()
+        #obs, reward, done, info = self.env.step(action)
+        #path = self.env.get_path()
+        path = self.env.predict_path(action)
         if v in path:
         
         #if self.env.check_path():
