@@ -7,5 +7,5 @@ source activate danilaenv && CUDA_VISIBLE_DEVICES=1, python train.py --subgraph 
 
 python examine.py --subgraph 100 --idx 0 && python examine.py --subgraph 90 --idx 0 && python examine.py --subgraph 80 --idx 0 && python examine.py --subgraph 70 --idx 0 && python examine.py --subgraph 60 --idx 0 && python examine.py --subgraph 50 --idx 0
 
-python examine.py --n_envs 16 --subgraph 70 --idx 0 && python examine.py --n_envs 16 --subgraph 60 --idx 0 && python examine.py --n_envs 16 --subgraph 50 --idx 0
+python examine.py --n_envs 16 --subgraph 100 --idx 0 && python examine.py --n_envs 16 --subgraph 90 --idx 0 && python examine.py --n_envs 16 --subgraph 80 --idx 0 && python examine.py --n_envs 16 --subgraph 70 --idx 0 && python examine.py --n_envs 16 --subgraph 60 --idx 0 && python examine.py --n_envs 16 --subgraph 50 --idx 0
 

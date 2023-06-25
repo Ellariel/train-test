@@ -1,6 +1,6 @@
 import os
 
-subgraphs = [50, 60, 70, 80, 90, 100]
+subgraphs = [60, 70, 80, 90, 100]
 idxs = list(range(1, 5))
 n_envs = 16
 #os.system('cd ..')
