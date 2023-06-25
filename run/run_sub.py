@@ -1,8 +1,8 @@
 import os
 
 subgraphs = [50, 60, 70, 80, 90, 100]
-idxs = list(range(0, 5))
-n_envs = 1
+idxs = list(range(1, 5))
+n_envs = 16
 #os.system('cd ..')
 for subgraph in subgraphs:
     for idx in idxs:

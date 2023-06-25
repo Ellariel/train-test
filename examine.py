@@ -105,8 +105,12 @@ class RLRouting():
         obs = self.env.reset()
         action, _states = self.model.predict(obs, deterministic=True)
         obs, reward, done, info = self.env.step(action)
-        if self.env.check_path():
-                r["path"] = self.env.get_path()
+        path = self.env.get_path()
+        if v in path:
+        
+        #if self.env.check_path():
+        #        r["path"] = self.env.get_path()
+                r["path"] = path
                 r["runtime"] = time.time() - start_time
                 r["dist"] = len(r["path"])
                 r["ok"] = r["dist"] > 0
@@ -124,7 +128,7 @@ class RLRouting():
 def track_emissions(G, T, routingObj, alg):
     results = []
     with OfflineEmissionsTracker(country_iso_code="CAN", 
-                                 measure_power_secs=1, 
+                                 measure_power_secs=0.5, 
                                  tracking_mode='process', 
                                  output_file=os.path.join(results_dir, 'emissions.csv')) as tracker:
         for t in tqdm(T, leave=False, desc=alg):
