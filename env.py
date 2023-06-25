@@ -41,9 +41,10 @@ class LNEnv(Env):
         self.u, self.v, self.amount = tx[0], tx[1], tx[2]     
         self.path = [self.u]
         
-        self.guided_path = self.get_shortest_path(self.u, self.v)
-        if not self.guided_path:
-            self.guided_path = [self.u, self.v]        
+        if self.train:
+            self.guided_path = self.get_shortest_path(self.u, self.v)
+            if not self.guided_path:
+                self.guided_path = [self.u, self.v]        
         
         self.agent_pos_idx = self.id_to_idx[self.u]
         self.target_pos_idx = self.id_to_idx[self.v]
