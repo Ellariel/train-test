@@ -1,9 +1,7 @@
 import os, time, pickle, argparse
-#import networkx as nx
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-#from stable_baselines3.common.env_checker import check_env
 from stable_baselines3 import PPO, A2C, DDPG, TD3, SAC
 from stable_baselines3.common.env_util import make_vec_env
 
@@ -88,8 +86,7 @@ for a in range(attempts):
     print(f"approach: {approach}, env: {version}, n_envs: {n_envs}, subset: {subset}, subgraph: {subgraph}, sample idx: {idx}")
     print(f"train: {file_mask}")
 
-    E_ = LNEnv(G, [], train=False)
-    #check_env(E_)    
+    E_ = LNEnv(G, [], train=False)  
     E = make_vec_env(lambda: LNEnv(G, train_set), n_envs=n_envs)
 
 

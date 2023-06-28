@@ -22,11 +22,11 @@ parser.add_argument('--idx', default=0, type=int)
 parser.add_argument('--subset', default='randomized', type=str)
 args = parser.parse_args()
 
+idx = args.idx
+subset = args.subset
 n_envs = args.n_envs
 approach = args.approach
 subgraph = args.subgraph
-idx = args.idx
-subset = args.subset
 
 if args.env == 'env':
     version='env'
@@ -104,13 +104,8 @@ class RLRouting():
         self.env.subset = [(u, v, amount)]       
         obs = self.env.reset()
         action, _states = self.model.predict(obs, deterministic=True)
-        #obs, reward, done, info = self.env.step(action)
-        #path = self.env.get_path()
         path = self.env.predict_path(action)
         if v in path:
-        
-        #if self.env.check_path():
-        #        r["path"] = self.env.get_path()
                 r["path"] = path
                 r["runtime"] = time.time() - start_time
                 r["dist"] = len(r["path"])
@@ -118,8 +113,6 @@ class RLRouting():
                 r["u"] = u
                 r["v"] = v
                 if r["ok"]:
-                        #r["delay"] = self.get_total_delay(r["path"])
-                        #r["amount"] = self.get_total_amount(r["path"], amount)
                         r["delay"], r["amount"] = self.get_total(r["path"], amount)
                         r["feeratio"] = r["amount"] / amount
                         r["feerate"] = r["amount"] / amount - 1
@@ -183,10 +176,7 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
         if os.path.exists(os.path.join(results_dir, 'emissions.csv')): 
             e = pd.read_csv(os.path.join(results_dir, 'emissions.csv'))
             e = pd.concat([e, pd.Series(emissions_idx, name='emissions_idx')], axis=1)
-            e = e[['emissions_idx', 'timestamp', 'duration', 'emissions', 
-                #'emissions_rate', 'cpu_power', 'gpu_power', 'ram_power', 'cpu_energy',
-                #'gpu_energy', 'ram_energy', 'energy_consumed', 
-                 ]]
+            e = e[['emissions_idx', 'timestamp', 'duration', 'emissions']]
             results[f"{algorithm}-{subgraph}-{i}-emissions"] = e.to_dict()
             os.remove(os.path.join(results_dir, 'emissions.csv'))
 

@@ -93,7 +93,6 @@ class LNEnv(Env):
         idx = np.argsort(itemgetter(*idx)(action))
         action = itemgetter(*idx)(act)
 
-        #while True:
         for _ in range(max_path_length):
             neighbors = [n for n in action if n in self.g.neighbors(self.path[-1]) and n not in self.path]
             if len(neighbors) and self.v not in self.path:

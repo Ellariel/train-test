@@ -1,15 +1,8 @@
-import os, argparse, pickle
-#import networkx as nx
-#time, sys, gym, random, , 
+import os, argparse, pickle, time
 import numpy as np
-#import pandas as pd
-#from gym import spaces
 from tqdm import tqdm
 #from stable_baselines3.common.env_checker import check_env
 from stable_baselines3 import PPO, A2C, DDPG, TD3, SAC
-#from stable_baselines3.common.vec_env import DummyVecEnv
-#from stable_baselines3.common.env_util import make_vec_env
-#from stable_baselines3.common.monitor import Monitor
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--approach', default='PPO', type=str)
@@ -40,20 +33,13 @@ def max_neighbors(G):
       max_neighbors = max(max_neighbors, neighbors_count(G, id))
     return max_neighbors
 
-def test_path(u, v, amount=100):
+def test_path(u, v, amount=100, max_path_length=100):
     E_.subset = [(u, v, amount)]
     obs = E_.reset()
     action, _states = model.predict(obs, deterministic=True)
-    path = E_.predict_path(action)
+    path = E_.predict_path(action, max_path_length=max_path_length)
     if E_.check_path():
         return path
-    
-    #if v in path:
-    #    return path
-    #obs, reward, done, info = E_.step(action)
-    #return E_.predict_path(action)
-    #if E_.check_path():
-    #       return E_.get_path()  
 
 base_dir = './'
 snapshots_dir = os.path.join(base_dir, 'snapshots')
@@ -103,41 +89,27 @@ else:
         print(f'did not find {approach}: {f}')
         model = model_class("MlpPolicy", E_) 
 
-train_score = 0 
-total_pathlen = []
-for tx in tqdm(train_set):
-            r = test_path(tx[0], tx[1], tx[2])
-            if r:
-                train_score += 1
-                total_pathlen += [len(r)]
-train_score = train_score / len(train_set)
-print(f'pathlen min: {min(total_pathlen)} average: {np.mean(total_pathlen)} max: {max(total_pathlen)}')
+def _test(_set):
+    _score = 0 
+    total_pathlen = []
+    run_time = []
+    for tx in tqdm(_set):
+                start_time = time.time()
+                r = test_path(tx[0], tx[1], tx[2])
+                if r:
+                    _score += 1
+                    total_pathlen += [len(r)]
+                run_time += [time.time() - start_time]
+    _score = _score / len(_set)
+    print(f'set size: {len(_set)}')
+    print(f'pathlen min: {min(total_pathlen)} average: {np.mean(total_pathlen):.2f} max: {max(total_pathlen)}')
+    print(f'average runtime: {np.mean(run_time)}')
+    return _score
 
-test_score = 0 
-total_pathlen = []
-for tx in tqdm(test_set):
-            r = test_path(tx[0], tx[1], tx[2])
-            if r:
-                test_score += 1
-                total_pathlen += [len(r)]
-test_score = test_score / len(test_set)
-print(f'pathlen min: {min(total_pathlen)} average: {np.mean(total_pathlen)} max: {max(total_pathlen)}')
-        
-valid_score = 0 
-total_pathlen = []
-for tx in tqdm(valid_set):
-            r = test_path(tx[0], tx[1], tx[2])
-            if r:
-                valid_score += 1
-                total_pathlen += [len(r)]
-valid_score = valid_score / len(valid_set)
-print(f'pathlen min: {min(total_pathlen)} average: {np.mean(total_pathlen)} max: {max(total_pathlen)}')
-
-        
 print(f'''v: {version}
-          train score: {train_score:.3f},
-          test score: {test_score:.3f},
-          validation score: {valid_score:.3f}
+          train score: {_test(train_set):.3f},
+          test score: {_test(test_set):.3f},
+          validation score: {_test(valid_set):.3f}
           ''')
 
 
