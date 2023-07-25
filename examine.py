@@ -14,11 +14,11 @@ from proto.lnd import LNDRouting
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--approach', default='PPO', type=str)
-parser.add_argument('--n_envs', default=1, type=int)
+parser.add_argument('--n_envs', default=16, type=int)
 parser.add_argument('--env', default='env', type=str)
 
 parser.add_argument('--subgraph', default=50, type=int)
-parser.add_argument('--idx', default=0, type=int)
+parser.add_argument('--idx', default=4, type=int)
 parser.add_argument('--subset', default='randomized', type=str)
 args = parser.parse_args()
 
@@ -52,19 +52,13 @@ def reverse(G):
     return G
     
 class RLRouting():
-    def __init__(self, G, weights_dir, approach='PPO', version='env', n_envs=16, subset='randomized', subgraph=50, idx=0) -> None:
-        self.version = version
+    def __init__(self, G, weights, approach='PPO') -> None:
+        self.weights = weights
         self.approach = approach
-        self.n_envs = n_envs
-        self.subset = subset
-        self.subgraph = subgraph
-        self.idx = idx
         self.g = G
         self.env = LNEnv(self.g, [], train=False)
         self.model = None
-        
-        self.file_mask = f'{approach}-{version}-{n_envs}-{subset}-{subgraph}-{idx}'
-        f = os.path.join(weights_dir, f'{self.file_mask}.sav')
+
         if self.approach == 'PPO':
                 self.model_class = PPO
         else:
@@ -72,11 +66,11 @@ class RLRouting():
                 print(f'{self.approach} - not implemented!')
                 raise ValueError
 
-        if os.path.exists(f) and self.model_class:
-                self.model = self.model_class.load(f, self.env, force_reset=False)
-                print(f'model is loaded {self.approach}: {f}')
+        if os.path.exists(self.weights) and self.model_class:
+                self.model = self.model_class.load(self.weights, self.env, force_reset=False)
+                print(f'model is loaded {self.approach}: {self.weights}')
         else:
-                print(f'did not find {self.approach}: {f}')
+                print(f'did not find {self.approach}: {self.weights}')
                 self.model = self.model_class("MlpPolicy", self.env)         
            
     def name(self):
@@ -152,17 +146,18 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
     random.seed(48)
     np.random.seed(48)    
     
-    file_mask = f'{approach}-{version}-{n_envs}-{subset}-{subgraph}-{i}'
-    if not os.path.exists(os.path.join(weights_dir, f'{file_mask}.sav')):
+    file_mask = f'{approach}-{version}-{n_envs}-{subset}-{subgraph}-{i}' 
+    weights_file = glob.glob(os.path.join(weights_dir, file_mask)+'.sav-*')
+    weights_file = weights_file[-1] if len(weights_file) else ''
+    #print(weights_file)    
+    
+    if not os.path.exists(weights_file):
         continue
     
-    algorithms = {'RLA': RLRouting(G, weights_dir, approach=approach, 
-                                version=version, n_envs=n_envs, 
-                                subset=subset, subgraph=subgraph, 
-                                idx=i),
-                 'LND': LNDRouting(),
-                 'CLN': CLightningRouting(random.uniform(-1,1)),
-                 'ECL': EclairRouting(),
+    algorithms = {'RLA': RLRouting(G, weights=weights_file),
+                  'LND': LNDRouting(),
+                  'CLN': CLightningRouting(random.uniform(-1,1)),
+                  'ECL': EclairRouting(),
                  }
     results = {}
 
