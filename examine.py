@@ -149,7 +149,8 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
     file_mask = f'{approach}-{version}-{n_envs}-{subset}-{subgraph}-{i}' 
     weights_file = glob.glob(os.path.join(weights_dir, file_mask)+'.sav-*')
     weights_file = weights_file[-1] if len(weights_file) else ''
-    #print(weights_file)    
+    if not os.path.exists(weights_file):
+        weights_file = os.path.join(weights_dir, file_mask)+'.sav'
     
     if not os.path.exists(weights_file):
         continue
