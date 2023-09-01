@@ -19,7 +19,7 @@ should_transfer_files = IF_NEEDED
 request_gpus = 1
 queue
 '''
-        with open(f'run/train-{n_envs}-{subgraph}-{idx}.sub', 'wt') as file:
+        with open(f'./run/train-{n_envs}-{subgraph}-{idx}.sub', 'wt') as file:
             file.writelines(line)
         time.sleep(1)
         print(f'{n_envs}-{subgraph}-{idx}')
