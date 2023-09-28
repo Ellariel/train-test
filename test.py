@@ -1,4 +1,4 @@
-import os, argparse, pickle, time
+import os, argparse, pickle, time, glob, sys
 import numpy as np
 from tqdm import tqdm
 #from stable_baselines3.common.env_checker import check_env
@@ -73,7 +73,14 @@ E_ = LNEnv(G, [], train=False)
 #e = LNEnv(G, T, train=True)
 #check_env(e)
 
-f = os.path.join(weights_dir, f'{file_mask}.sav')
+weights_file = os.path.join(weights_dir, f'{file_mask}.sav')
+weights_file_list = glob.glob(weights_file + '-*')
+if len(weights_file_list):
+    weights_file_list = sorted(weights_file_list, key=lambda x: float(''.join([i for i in x.split('-')[-1] if i.isdigit() or i == '.'])))
+    if os.path.exists(weights_file_list[-1]):
+        weights_file = weights_file_list[-1]
+
+print(weights_file)
 
 if approach == 'PPO':
         model_class = PPO
@@ -82,11 +89,11 @@ else:
         print(f'{approach} - not implemented!')
         raise ValueError
 
-if os.path.exists(f) and model_class:
-        model = model_class.load(f, E_, force_reset=False)
-        print(f'model is loaded {approach}: {f}')
+if os.path.exists(weights_file) and model_class:
+        model = model_class.load(weights_file, E_, force_reset=False)
+        print(f'model is loaded {approach}: {weights_file}')
 else:
-        print(f'did not find {approach}: {f}')
+        print(f'did not find {approach}: {weights_file}')
         model = model_class("MlpPolicy", E_) 
 
 def _test(_set):

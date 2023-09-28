@@ -145,12 +145,20 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
     
     random.seed(48)
     np.random.seed(48)    
-    
+
     file_mask = f'{approach}-{version}-{n_envs}-{subset}-{subgraph}-{i}' 
+    '''
     weights_file = glob.glob(os.path.join(weights_dir, file_mask)+'.sav-*')
     weights_file = weights_file[-1] if len(weights_file) else ''
     if not os.path.exists(weights_file):
         weights_file = os.path.join(weights_dir, file_mask)+'.sav'
+    '''
+    weights_file = os.path.join(weights_dir, f'{file_mask}.sav')
+    weights_file_list = glob.glob(weights_file + '-*')
+    if len(weights_file_list):
+        weights_file_list = sorted(weights_file_list, key=lambda x: float(''.join([i for i in x.split('-')[-1] if i.isdigit() or i == '.'])))
+        if os.path.exists(weights_file_list[-1]):
+            weights_file = weights_file_list[-1]    
     
     if not os.path.exists(weights_file):
         continue
