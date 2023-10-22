@@ -15,7 +15,7 @@ parser.add_argument('--idx', default=0, type=int)
 parser.add_argument('--subset', default='randomized', type=str)
 
 parser.add_argument('--attempts', default=10, type=int)
-parser.add_argument('--epochs', default=10000, type=int)
+parser.add_argument('--epochs', default=100, type=int)
 parser.add_argument('--timesteps', default=1e4, type=int)
 
 args = parser.parse_args()

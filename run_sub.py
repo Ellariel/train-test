@@ -1,6 +1,6 @@
 import os, time
 
-subgraphs = [50, 60, 70]#, 80, 90, 100]
+subgraphs = [80, 90, 100] #[50, 60, 70]
 idxs = list(range(1, 4))
 n_envs = 16
 log = '#'
@@ -24,3 +24,4 @@ queue
         time.sleep(1)
         print(f'{n_envs}-{subgraph}-{idx}')
         os.system(f'condor_submit ./run/train-{n_envs}-{subgraph}-{idx}.sub')
+        os.remove(f'./run/train-{n_envs}-{subgraph}-{idx}.sub')
