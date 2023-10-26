@@ -1,9 +1,0 @@
-executable = /bin/bash 
-arguments = -i conda_activate.sh baselines train.py --n_envs 16 --subgraph 50 --idx 3
-transfer_input_files = conda_activate.sh, train.py 
-#log = ./logs/train-16-50-3.txt 
-#output = ./logs/train-stdout-16-50-3.txt
-error = ./logs/train-stderr-16-50-3.txt
-should_transfer_files = IF_NEEDED 
-request_gpus = 1
-queue
