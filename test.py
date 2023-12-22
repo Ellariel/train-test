@@ -1,4 +1,4 @@
-import os, argparse, pickle, time, glob, sys
+import os, argparse, pickle, time, glob
 import numpy as np
 from tqdm import tqdm
 #from stable_baselines3.common.env_checker import check_env

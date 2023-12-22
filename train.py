@@ -1,4 +1,4 @@
-import os, time, pickle, argparse
+import os, time, pickle, argparse, shutil
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
@@ -89,7 +89,6 @@ for a in range(attempts):
     E_ = LNEnv(G, [], train=False)  
     E = make_vec_env(lambda: LNEnv(G, train_set), n_envs=n_envs)
 
-
     lf = os.path.join(results_dir, f'{file_mask}.log')
     log = pd.read_csv(lf, sep=';', compression='zip') if os.path.exists(lf) else None
     f = os.path.join(weights_dir, f'{file_mask}.sav')
@@ -141,10 +140,10 @@ for a in range(attempts):
         print(f'test score: {test_score}, pathlen min: {np.min(test_total_pathlen)} average: {np.mean(test_total_pathlen):.1f} max: {np.max(test_total_pathlen)}')
         print(f'train score: {train_score}, pathlen min: {np.min(train_total_pathlen)} average: {np.mean(train_total_pathlen):.1f} max: {np.max(train_total_pathlen)}')
         print(f"max mean reward: {max_mean_reward:.3f}~{mean_reward}")
-        if epoch % 2:
-            model.save(f)
-        else:
-            model.save(f+'.tmp')
+        
+        if os.path.exists(f):
+            shutil.move(f, f + '.tmp')
+        model.save(f)
 
         if max(train_score, test_score) > 0.8:
             model.save(f + f'-{train_score:.3f}-{test_score:.3f}')

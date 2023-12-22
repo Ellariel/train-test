@@ -4,7 +4,7 @@ import networkx as nx
 import os, time, pickle, glob, random, argparse
 from tqdm import tqdm
 from stable_baselines3 import PPO, A2C, DDPG, TD3, SAC
-from codecarbon import EmissionsTracker, OfflineEmissionsTracker
+from codecarbon import OfflineEmissionsTracker
 # https://github.com/mlco2/codecarbon#start-to-estimate-your-impact-
 # https://arxiv.org/pdf/1911.08354.pdf
 
@@ -147,12 +147,7 @@ for i in tqdm(range(idx+1), total=idx+1, leave=True):
     np.random.seed(48)    
 
     file_mask = f'{approach}-{version}-{n_envs}-{subset}-{subgraph}-{i}' 
-    '''
-    weights_file = glob.glob(os.path.join(weights_dir, file_mask)+'.sav-*')
-    weights_file = weights_file[-1] if len(weights_file) else ''
-    if not os.path.exists(weights_file):
-        weights_file = os.path.join(weights_dir, file_mask)+'.sav'
-    '''
+
     weights_file = os.path.join(weights_dir, f'{file_mask}.sav')
     weights_file_list = glob.glob(weights_file + '-*')
     if len(weights_file_list):

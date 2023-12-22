@@ -1,6 +1,6 @@
 import os, time
 
-subgraphs = [80, 90, 100] #[50, 60, 70]
+subgraphs = [50, 60, 70, 80, 90, 100]
 idxs = list(range(0, 4))
 n_envs = 16
 log = '#'
