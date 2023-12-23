@@ -18,7 +18,7 @@ parser.add_argument('--n_envs', default=16, type=int)
 parser.add_argument('--env', default='env', type=str)
 
 parser.add_argument('--subgraph', default=50, type=int)
-parser.add_argument('--idx', default=4, type=int)
+parser.add_argument('--idx', default=3, type=int)
 parser.add_argument('--subset', default='randomized', type=str)
 args = parser.parse_args()
 
