@@ -4,6 +4,9 @@ import numpy as np
 from gym import Env, spaces
 from operator import itemgetter
 
+import warnings
+warnings.filterwarnings('ignore')
+
 from proto.proto import cost_function
 
 class LNEnv(Env): 

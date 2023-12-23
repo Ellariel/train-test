@@ -1,8 +1,9 @@
+#python=3.9
+stable_baselines3[extra]==2.2.1
 codecarbon==2.1.4
-gym==0.21.0
+gym==0.23.0
 nested_dict==1.61
 networkx==3.2.1
 numpy==1.23.4
 pandas==1.5.2
-stable_baselines3[extra]==2.2.1
 tqdm==4.64.1

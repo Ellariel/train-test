@@ -8,6 +8,9 @@ from codecarbon import OfflineEmissionsTracker
 # https://github.com/mlco2/codecarbon#start-to-estimate-your-impact-
 # https://arxiv.org/pdf/1911.08354.pdf
 
+import warnings
+warnings.filterwarnings('ignore')
+
 from proto.eclair import EclairRouting
 from proto.clightning import CLightningRouting
 from proto.lnd import LNDRouting
